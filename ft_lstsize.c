@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlcpy.c                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhallad <mkhallad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 19:15:10 by mkhallad          #+#    #+#             */
-/*   Updated: 2025/08/26 15:10:21 by mkhallad         ###   ########.fr       */
+/*   Created: 2025/08/25 19:22:42 by mkhallad          #+#    #+#             */
+/*   Updated: 2025/08/31 16:30:13 by mkhallad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
-{
-	size_t	src_len;
+#include "libft.h"
 
-	src_len = ft_strlen(src);
-	if (src_len + 1 < destsize)
-		ft_memcpy(dest, src, src_len + 1);
-	else if (destsize != 0)
+int	ft_lstsize(t_list *lst)
+{
+	int		count;
+
+	count = 0;
+	while (lst)
 	{
-		ft_memcpy (dest, src, destsize - 1);
-		dest[destsize - 1] = 0;
+		count++;
+		lst = lst->next;
 	}
-	return (src_len);
+	return (count);
 }
+// int main(void)
+// {
+// 	t_list a = {"one", NULL}, b = {"two", NULL}, c = {"three", NULL};
+// 	a.next = &b; b.next = &c;
+// 	printf("List size: %d\n", ft_lstsize(&a));
+// }

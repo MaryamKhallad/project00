@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strmapi.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhallad <mkhallad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 15:56:56 by mkhallad          #+#    #+#             */
-/*   Updated: 2025/08/26 16:26:29 by mkhallad         ###   ########.fr       */
+/*   Created: 2025/08/25 19:09:12 by mkhallad          #+#    #+#             */
+/*   Updated: 2025/08/31 15:30:31 by mkhallad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+t_list	*ft_lstnew(void *content)
 {
-	char	*str;
-	size_t	i;
+	t_list	*node;
 
-	if (!(str == ft_strdup(s)))
+	node = (t_list *)malloc(sizeof(t_list));
+	if (!node)
 		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		str[i] = (*f)(i, str[i]);
-		i++;
-	}
-	return (str);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }
+// int main (void)
+// {
+// 	char *str = "hello world";
+// 	t_list *node = ft_lstnew(str);
+// 	if (node == NULL)
+// 	{
+// 		printf("failed");
+// 		return 1;
+// 	}
+// 	printf("node content: %s \n", (char *)node->content);
+// 	free(node);
+// 	return 0;
+// }

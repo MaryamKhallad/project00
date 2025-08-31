@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _putnbr_fd.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhallad <mkhallad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:17:05 by mkhallad          #+#    #+#             */
-/*   Updated: 2025/08/26 17:56:36 by mkhallad         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:25:22 by mkhallad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,33 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n == -2147483648)
-		write(fd, "-2147483648", 11);
-	else if (n < 0)
+	unsigned int	num;
+	char			buffer[12];
+	int				i;
+	int				neg;
+
+	i = 11;
+	buffer[i] = '\0';
+	neg = 0;
+	if (n < 0)
 	{
-		write(fd, "-", 1);
-		n = -n;
-		ft_putnbr_fd(n, fd);
+		num = (unsigned int)(- (long)n);
+		neg = 1;
 	}
 	else
+		num = (unsigned int)n;
+	if (num == 0)
+		buffer[--i] = '0';
+	while (num > 0)
 	{
-		if (n > 9)
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putnbr_fd(n % 10, fd);
-		}
-		else
-		{
-			digit = n + 48;
-			write(fd, &digit, 1);
-		}
+		buffer[--i] = '0' + (num % 10);
+		num /= 10;
 	}
+	if (neg)
+		buffer[--i] = '-';
+	write(fd, &buffer[i], 11 - i);
 }
+// int main (void)
+// {
+// 	ft_putnbr_fd(12345, 1);
+// }

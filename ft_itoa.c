@@ -1,65 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   itoa.c                                             :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhallad <mkhallad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:32:57 by mkhallad          #+#    #+#             */
-/*   Updated: 2025/08/26 15:56:11 by mkhallad         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:22:09 by mkhallad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_char(char *s, unsigned int number, long int len)
-{
-	while (number > 0)
-	{
-		s[len--] = 48 + (number % 10);
-		number = number / 10;
-	}
-	return (s);
-}
-
-static long int	ft_len(int n)
+static	int	ft_numlen(int n)
 {
 	int	len;
 
-	len = 0;
 	if (n <= 0)
 		len = 1;
-	while (n != 0)
+	else
+		len = 0;
+	while (n)
 	{
+		n /= 10;
 		len++;
-		n = n / 10;
 	}
 	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char			*s;
-	long int		len;
-	unsigned int	number;
-	int				sign;
+	int		len;
+	char	*str;
+	long	num;
 
-	sign = 1;
-	len = ft_len(n);
-	s = (char *)malloc(sizeof(char) * (len + 1));
-	if (!(s))
+	len = ft_numlen(n);
+	str = malloc(len + 1);
+	num = n;
+	if (!str)
 		return (NULL);
-	s[len--] = '\0';
-	if (n == 0)
-		s[0] = '0';
+	str[len] = '\0';
 	if (n < 0)
 	{
-		sign = -1;
-		number = n * -1;
-		s[0] = '-';
+		str[0] = '-';
+		num = -num;
 	}
-	else
-		number = n;
-	s = ft_char(s, number, len);
-	return (s);
+	if (n == 0)
+		str[0] = '0';
+	while (num > 0)
+	{
+		str[--len] = '0' + (num % 10);
+		num /= 10;
+	}
+	return (str);
 }
+// int main (void)
+// {
+// 	printf("%s\n", ft_itoa(-12345));
+// 	return (0);
+// }
